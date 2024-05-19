@@ -29,8 +29,13 @@ hiyohiyohiyohiyohiyohiyohiyohiyohiyohiyohiyohiyohiyohiyohiyohiyohiyohiyo*/
 	#pragma comment(lib, "winmm.lib")
 #else
 	// for FreeBSD / Linux 
-	#include<sys/time.h>
-	#include<sys/sysctl.h>
+	#if defined(__FreeBSD__)
+		#include<sys/time.h>
+		#include<sys/sysctl.h>
+	#endif
+	#if defined(__linux__)
+		#include<time.h>
+	#endif
 #endif
 
 #define	LIBGLDB_SERIAL	2004020101	/* Version 0.5 */
@@ -143,6 +148,8 @@ void hiyoGL_GetCPUModelName(char *cpumodel, size_t buflen)
 	sysctl(mib, 2, NULL, &ctllen, NULL, 0);
 	if((buflen-1) > ctllen)
 		{ sysctl(mib, 2, cpumodel, &ctllen, NULL, 0); }
+#elif defined(__linux__)
+	strncpy(cpumodel, "TODO", buflen);
 #endif
 
     return;

@@ -27,6 +27,8 @@
 	#endif
 #elif defined(__FreeBSD__)
 		#define HIYOGL_EDITION			"FreeBSD(amd64)"
+#elif defined(__linux__)
+		#define HIYOGL_EDITION			"Linux"
 #endif
 
 #define HIYOGL_VERSION			"202403252135"
